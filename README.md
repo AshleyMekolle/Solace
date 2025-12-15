@@ -1,16 +1,55 @@
-# React + Vite
+# SolaceFlow 🌿
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A serene digital sanctuary for mindful productivity and personal growth.
 
-Currently, two official plugins are available:
+SolaceFlow is a beautifully designed, all-in-one productivity companion that helps you manage projects, track goals, and build meaningful habits in a distraction-free environment. Built with calm focus in mind, it transforms your workflow into a peaceful, flowing experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![SolaceFlow Dashboard Preview](https://img.shields.io/badge/Status-Active-86B6B6?style=for-the-badge)
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
+![License](https://img.shields.io/badge/License-MIT-5B8FB9?style=for-the-badge)
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎯 **Project Management**
+- **Visual Project Dashboard** with health scores and progress tracking
+- **SDLC Kanban Board** for development workflow (Requirements → Maintenance)
+- **Mind Map Planning** with React Flow integration
+- **Rich Text Notes** using TipTap editor
+- **Local File Management** with IndexedDB storage
 
-## Expanding the ESLint configuration
+### 🌱 **Goal Tracking**
+- **Personalized Goal Categories** (Development, Health, Learning, Habits)
+- **Streak Visualization** with heatmap calendar
+- **GitHub Integration** for automatic commit tracking
+- **Habit Chain** - "Don't break the chain" motivation system
+- **Progress Analytics** with insights and recommendations
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🧘 **Focus & Wellness**
+- **Focus Mode** with Pomodoro timer and ambient sound
+- **Zen-like Interface** designed for minimal cognitive load
+
+### 📱 **Modern Experience**
+- **Responsive Design** - Mobile, tablet, and desktop
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, or pnpm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/solaceflow.git
+cd solaceflow
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+ ```
+
+<p align="center"> Made with ❤️ for focused minds seeking peace in productivity<br> <sub>Find your flow. Achieve with ease.</sub> </p>
