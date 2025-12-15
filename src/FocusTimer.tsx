@@ -1,90 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// Sound options
-type SoundType = 'bell' | 'chime' | 'gong' | 'nature' | 'none';
-type TimerMode = 'focus' | 'shortBreak' | 'longBreak';
-type ThemeType = 'zen' | 'forest' | 'ocean' | 'sunset';
+import { useTimerStore, themes, timerPresets, soundFiles } from './timerStore'; // Adjust import path
 
 const FocusTimer: React.FC = () => {
-  // Timer state
-  const [time, setTime] = useState(25 * 60); // in seconds
-  const [isRunning, setIsRunning] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [mode, setMode] = useState<TimerMode>('focus');
-  const [theme, setTheme] = useState<ThemeType>('zen');
-  const [selectedSound, setSelectedSound] = useState<SoundType>('bell');
-  const [autoStartBreaks, setAutoStartBreaks] = useState(true);
-  const [pomodoroCount, setPomodoroCount] = useState(0);
-  const [remainingTime, setRemainingTime] = useState('25:00');
-  
+  // Use timer store
+  const {
+    time,
+    isRunning,
+    isCompleted,
+    mode,
+    theme,
+    selectedSound,
+    autoStartBreaks,
+    pomodoroCount,
+    remainingTime,
+    setTime,
+    setIsRunning,
+    setIsCompleted,
+    setMode,
+    setTheme,
+    setSelectedSound,
+    setAutoStartBreaks,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+    completeTimer,
+    switchMode,
+    setTimerDuration,
+    incrementPomodoroCount,
+  } = useTimerStore();
+
   // Refs
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const notificationPermissionRef = useRef(false);
-
-  // Timer presets (in seconds)
-  const timerPresets = {
-    focus: {
-      '15': 15 * 60,
-      '25': 25 * 60,
-      '45': 45 * 60,
-      '60': 60 * 60,
-    },
-    shortBreak: {
-      '5': 5 * 60,
-      '10': 10 * 60,
-    },
-    longBreak: {
-      '15': 15 * 60,
-      '20': 20 * 60,
-    }
-  };
-
-  // Sound files mapping
-  const soundFiles: Record<SoundType, string> = {
-    bell: 'https://assets.mixkit.co/sfx/preview/mixkit-bell-notification-933.mp3',
-    chime: 'https://assets.mixkit.co/sfx/preview/mixkit-clear-morning-chimes-331.mp3',
-    gong: 'https://assets.mixkit.co/sfx/preview/mixkit-gong-deep-voice-576.mp3',
-    nature: 'https://assets.mixkit.co/sfx/preview/mixkit-birds-chirping-1465.mp3',
-    none: ''
-  };
-
-  // Themes
-  const themes = {
-    zen: {
-      primary: '#FF9BC9',
-      secondary: '#A1E8D9',
-      background: '#FFF9F9',
-      text: '#5A5560',
-      lightText: '#9D8BA5',
-      icon: '🌸'
-    },
-    forest: {
-      primary: '#10B981',
-      secondary: '#84CC16',
-      background: '#F0FDF4',
-      text: '#064E3B',
-      lightText: '#6B7280',
-      icon: '🌿'
-    },
-    ocean: {
-      primary: '#3B82F6',
-      secondary: '#06B6D4',
-      background: '#EFF6FF',
-      text: '#1E40AF',
-      lightText: '#6B7280',
-      icon: '🌊'
-    },
-    sunset: {
-      primary: '#F59E0B',
-      secondary: '#EC4899',
-      background: '#FFFBEB',
-      text: '#92400E',
-      lightText: '#6B7280',
-      icon: '🌅'
-    }
-  };
 
   const currentTheme = themes[theme];
 
@@ -105,13 +54,7 @@ const FocusTimer: React.FC = () => {
   useEffect(() => {
     if (isRunning && time > 0) {
       timerRef.current = setInterval(() => {
-        setTime(prevTime => {
-          if (prevTime <= 1) {
-            handleTimerComplete();
-            return 0;
-          }
-          return prevTime - 1;
-        });
+        setTime(time - 1);
       }, 1000);
     } else if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -122,24 +65,23 @@ const FocusTimer: React.FC = () => {
         clearInterval(timerRef.current);
       }
     };
-  }, [isRunning, time]);
+  }, [isRunning, time, setTime]);
 
-  // Update remaining time display
+  // Handle timer completion
   useEffect(() => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    setRemainingTime(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-  }, [time]);
+    if (time === 0 && isRunning) {
+      handleTimerComplete();
+    }
+  }, [time, isRunning]);
 
   const handleTimerComplete = () => {
     setIsRunning(false);
-    setIsCompleted(true);
+    completeTimer();
     
     // Play sound
     if (selectedSound !== 'none' && audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch(() => {
-        // Fallback: Use browser's built-in audio context
         playFallbackSound();
       });
     }
@@ -155,7 +97,6 @@ const FocusTimer: React.FC = () => {
         icon: 'https://emojicdn.elk.sh/🌸',
       });
     } else {
-      // Fallback alert
       setTimeout(() => {
         alert(mode === 'focus' 
           ? '🎉 Focus session complete! Time for a break.' 
@@ -164,30 +105,22 @@ const FocusTimer: React.FC = () => {
       }, 100);
     }
 
-    // Update pomodoro count
-    if (mode === 'focus') {
-      const newCount = pomodoroCount + 1;
-      setPomodoroCount(newCount);
-      
-      // Auto-start breaks if enabled
-      if (autoStartBreaks) {
-        setTimeout(() => {
-          if (newCount % 4 === 0) {
-            setMode('longBreak');
-            setTime(timerPresets.longBreak['15']);
-          } else {
-            setMode('shortBreak');
-            setTime(timerPresets.shortBreak['5']);
-          }
-          setIsRunning(true);
-          setIsCompleted(false);
-        }, 2000);
-      }
+    // Auto-start breaks if enabled
+    if (mode === 'focus' && autoStartBreaks) {
+      setTimeout(() => {
+        const newMode = (pomodoroCount + 1) % 4 === 0 ? 'longBreak' : 'shortBreak';
+        const newTime = newMode === 'longBreak' 
+          ? timerPresets.longBreak['15'] 
+          : timerPresets.shortBreak['5'];
+        
+        switchMode(newMode);
+        setTime(newTime);
+        startTimer();
+      }, 2000);
     }
   };
 
   const playFallbackSound = () => {
-    // Create a simple beep using Web Audio API
     if ('AudioContext' in window || 'webkitAudioContext' in window) {
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
       const audioContext = new AudioContext();
@@ -209,48 +142,6 @@ const FocusTimer: React.FC = () => {
     }
   };
 
-  const startTimer = () => {
-    setIsRunning(true);
-    setIsCompleted(false);
-  };
-
-  const pauseTimer = () => {
-    setIsRunning(false);
-  };
-
-  const resetTimer = () => {
-    setIsRunning(false);
-    setIsCompleted(false);
-    // Reset to current mode's default
-    if (mode === 'focus') {
-      setTime(timerPresets.focus['25']);
-    } else if (mode === 'shortBreak') {
-      setTime(timerPresets.shortBreak['5']);
-    } else {
-      setTime(timerPresets.longBreak['15']);
-    }
-  };
-
-  const setTimer = (seconds: number) => {
-    setIsRunning(false);
-    setIsCompleted(false);
-    setTime(seconds);
-  };
-
-  const switchMode = (newMode: TimerMode) => {
-    setIsRunning(false);
-    setIsCompleted(false);
-    setMode(newMode);
-    
-    if (newMode === 'focus') {
-      setTime(timerPresets.focus['25']);
-    } else if (newMode === 'shortBreak') {
-      setTime(timerPresets.shortBreak['5']);
-    } else {
-      setTime(timerPresets.longBreak['15']);
-    }
-  };
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -258,15 +149,14 @@ const FocusTimer: React.FC = () => {
   };
 
   const calculateProgress = () => {
-    let totalTime = 25 * 60; // Default focus time
-    if (mode === 'shortBreak') totalTime = 5 * 60;
-    if (mode === 'longBreak') totalTime = 15 * 60;
+    let totalTime = mode === 'focus' ? 25 * 60 :
+                   mode === 'shortBreak' ? 5 * 60 : 15 * 60;
     return ((totalTime - time) / totalTime) * 100;
   };
 
   const progress = calculateProgress();
 
-  // Get motivational messages based on mode and progress
+  // Get motivational messages
   const getMotivationalMessage = () => {
     if (mode === 'focus') {
       if (time > 20 * 60) return "Begin your journey 🌱";
@@ -279,6 +169,10 @@ const FocusTimer: React.FC = () => {
     }
   };
 
+  const handleSetTimer = (seconds: number) => {
+    setTimerDuration(seconds);
+  };
+
   return (
     <div className="focus-timer" style={{ background: currentTheme.background }}>
       {/* Header */}
@@ -289,6 +183,7 @@ const FocusTimer: React.FC = () => {
       >
         <h1>{currentTheme.icon} Zen Focus Timer</h1>
         <p className="subtitle">Find your flow, one pomodoro at a time</p>
+        <p className="storage-info">💾 Timer settings saved locally</p>
       </motion.div>
 
       <div className="main-content">
@@ -407,11 +302,11 @@ const FocusTimer: React.FC = () => {
           <div className="settings-section">
             <h3 style={{ color: currentTheme.text }}>⏱️ Timer Mode</h3>
             <div className="mode-buttons">
-              {(['focus', 'shortBreak', 'longBreak'] as TimerMode[]).map((modeOption) => (
+              {(['focus', 'shortBreak', 'longBreak']).map((modeOption) => (
                 <motion.button
                   key={modeOption}
                   className={`mode-btn ${mode === modeOption ? 'active' : ''}`}
-                  onClick={() => switchMode(modeOption)}
+                  onClick={() => switchMode(modeOption as any)}
                   style={{
                     background: mode === modeOption ? currentTheme.primary : 'rgba(0,0,0,0.05)',
                     color: mode === modeOption ? 'white' : currentTheme.text
@@ -435,7 +330,7 @@ const FocusTimer: React.FC = () => {
                 <motion.button
                   key={label}
                   className={`preset-btn ${time === seconds ? 'active' : ''}`}
-                  onClick={() => setTimer(seconds)}
+                  onClick={() => handleSetTimer(seconds)}
                   style={{
                     background: time === seconds ? currentTheme.primary : 'rgba(0,0,0,0.05)',
                     color: time === seconds ? 'white' : currentTheme.text
@@ -453,11 +348,11 @@ const FocusTimer: React.FC = () => {
           <div className="settings-section">
             <h3 style={{ color: currentTheme.text }}>🔔 Completion Sound</h3>
             <div className="sound-buttons">
-              {(['bell', 'chime', 'gong', 'nature', 'none'] as SoundType[]).map((sound) => (
+              {(['bell', 'chime', 'gong', 'nature', 'none']).map((sound) => (
                 <motion.button
                   key={sound}
                   className={`sound-btn ${selectedSound === sound ? 'active' : ''}`}
-                  onClick={() => setSelectedSound(sound)}
+                  onClick={() => setSelectedSound(sound as any)}
                   style={{
                     background: selectedSound === sound ? currentTheme.primary : 'rgba(0,0,0,0.05)',
                     color: selectedSound === sound ? 'white' : currentTheme.text
@@ -479,19 +374,19 @@ const FocusTimer: React.FC = () => {
           <div className="settings-section">
             <h3 style={{ color: currentTheme.text }}>🎨 Theme</h3>
             <div className="theme-buttons">
-              {(['zen', 'forest', 'ocean', 'sunset'] as ThemeType[]).map((themeOption) => (
+              {(['zen', 'forest', 'ocean', 'sunset']).map((themeOption) => (
                 <motion.button
                   key={themeOption}
                   className={`theme-btn ${theme === themeOption ? 'active' : ''}`}
-                  onClick={() => setTheme(themeOption)}
+                  onClick={() => setTheme(themeOption as any)}
                   style={{
-                    background: themes[themeOption].background,
-                    border: `2px solid ${theme === themeOption ? themes[themeOption].primary : 'transparent'}`
+                    background: themes[themeOption as keyof typeof themes].background,
+                    border: `2px solid ${theme === themeOption ? themes[themeOption as keyof typeof themes].primary : 'transparent'}`
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {themes[themeOption].icon}
+                  {themes[themeOption as keyof typeof themes].icon}
                 </motion.button>
               ))}
             </div>
@@ -604,8 +499,7 @@ const FocusTimer: React.FC = () => {
           🔔 Test Notifications
         </motion.button>
       </div>
-
-      <style>{`
+ <style>{`
         .focus-timer {
           min-height: 100vh;
           padding: 30px;
@@ -635,6 +529,17 @@ const FocusTimer: React.FC = () => {
           font-size: 1.2rem;
           margin: 0;
           font-weight: 400;
+        }
+
+        .storage-info {
+          color: ${currentTheme.secondary};
+          font-size: 0.9rem;
+          margin: 10px 0 0 0;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
         }
 
         /* Main Content */
