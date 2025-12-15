@@ -1,0 +1,98 @@
+.goal-tracker {
+    animation: fadeIn 0.3s ease;
+}
+
+.goal-form {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.goal-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    transition: border 0.2s;
+}
+
+.goal-input:focus {
+    outline: none;
+    border-color: #86B6B6;
+}
+
+.goal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.goal-item:hover {
+    border-color: #86B6B6;
+    box-shadow: 0 2px 8px rgba(134, 182, 182, 0.1);
+}
+
+.goal-item.completed {
+    background: linear-gradient(135deg, #86B6B6 0%, #6fa0a0 100%);
+    border-color: #86B6B6;
+    color: white;
+}
+
+.goal-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.goal-content {
+    flex: 1;
+}
+
+.goal-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.streak-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.streak-icon {
+    font-size: 1rem;
+}
+
+.streak-count {
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 15px;
+}
