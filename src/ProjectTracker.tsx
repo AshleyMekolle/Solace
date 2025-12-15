@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useStore } from './store'; // Assuming your store is in a separate file
 
-// Types
+// Types (keep your existing types here)
 type Priority = 0 | 1 | 2 | 3;
 type SDLCPhase = 'planning' | 'analysis' | 'design' | 'implementation' | 'testing' | 'deployment' | 'maintenance';
 type IdeaStatus = 'backlog' | 'active' | 'in-progress' | 'completed' | 'archived';
@@ -52,100 +53,32 @@ interface Resource {
 }
 
 const ProjectTracker: React.FC = () => {
-  // State
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: '1',
-      name: 'Flower Shop Website',
-      description: 'Create beautiful e-commerce site for flower boutique',
-      color: '#FF9BC9',
-      icon: '🌸',
-      createdAt: new Date('2024-01-01'),
-      isActive: true,
-    },
-    {
-      id: '2',
-      name: 'Mindfulness App',
-      description: 'Meditation and relaxation mobile application',
-      color: '#A1E8D9',
-      icon: '🧘‍♀️',
-      createdAt: new Date('2024-01-15'),
-      isActive: true,
-    },
-    {
-      id: '3',
-      name: 'Art Gallery Platform',
-      description: 'Digital platform for local artists',
-      color: '#FFC8DD',
-      icon: '🎨',
-      createdAt: new Date('2024-02-01'),
-      isActive: false,
-    },
-  ]);
+  // Use Zustand store for state management with local storage
+  const {
+    projects,
+    tasks,
+    ideas,
+    resources,
+    activeProjectId,
+    activeTab: storeActiveTab,
+    addProject,
+    updateProject,
+    deleteProject,
+    setActiveProject,
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTask,
+    addIdea,
+    updateIdea,
+    deleteIdea,
+    addResource,
+    deleteResource,
+    setActiveTab: setStoreActiveTab,
+    getProjectStats
+  } = useStore();
 
-  const [ideas, setIdeas] = useState<Idea[]>([
-    {
-      id: '1',
-      projectId: '1',
-      title: 'Floral Color Palette',
-      description: 'Create pastel color scheme with floral accents',
-      phase: 'design',
-      status: 'active',
-      priority: 2,
-      tags: ['design', 'ui', 'colors'],
-      createdAt: new Date('2024-01-10'),
-      updatedAt: new Date('2024-01-10'),
-    },
-    {
-      id: '2',
-      projectId: '1',
-      title: 'Gift Wrapping Feature',
-      description: 'Add virtual gift wrapping options',
-      phase: 'implementation',
-      status: 'in-progress',
-      priority: 1,
-      tags: ['feature', 'e-commerce'],
-      createdAt: new Date('2024-01-12'),
-      updatedAt: new Date('2024-01-15'),
-    },
-  ]);
-
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: '1',
-      projectId: '1',
-      ideaId: '1',
-      title: 'Research color psychology for flowers',
-      completed: true,
-      createdAt: new Date('2024-01-11'),
-    },
-    {
-      id: '2',
-      projectId: '1',
-      ideaId: '1',
-      title: 'Create mood board with floral patterns',
-      completed: false,
-      createdAt: new Date('2024-01-12'),
-    },
-  ]);
-
-  const [resources, setResources] = useState<Resource[]>([
-    {
-      id: '1',
-      projectId: '1',
-      title: 'Floral Pattern Collection',
-      url: 'https://example.com/floral-patterns',
-      type: 'link',
-      description: 'Beautiful floral patterns for website design',
-      tags: ['design', 'patterns', 'inspiration'],
-      createdAt: new Date('2024-01-05'),
-    },
-  ]);
-
-  const [activeProjectId, setActiveProjectId] = useState<string>('1');
-  const [activeTab, setActiveTab] = useState<'overview' | 'ideas' | 'tasks' | 'resources'>('overview');
-  
-  // Form states
+  // Local state for form inputs
   const [newProjectName, setNewProjectName] = useState('');
   const [newProjectDesc, setNewProjectDesc] = useState('');
   const [newIdeaTitle, setNewIdeaTitle] = useState('');
@@ -229,21 +162,20 @@ const ProjectTracker: React.FC = () => {
   const projectTasks = tasks.filter(task => task.projectId === activeProjectId);
   const projectResources = resources.filter(resource => resource.projectId === activeProjectId);
 
-  // Handlers
+  // Get stats for active project
+  const stats = getProjectStats(activeProjectId);
+
+  // Handlers - Updated to use Zustand store
   const handleAddProject = (e: React.FormEvent) => {
     e.preventDefault();
     if (newProjectName.trim()) {
-      const newProject: Project = {
-        id: Date.now().toString(),
+      addProject({
         name: newProjectName,
         description: newProjectDesc,
         color: zenColors.primary,
         icon: projectIcons[Math.floor(Math.random() * projectIcons.length)],
-        createdAt: new Date(),
         isActive: true,
-      };
-      setProjects([newProject, ...projects]);
-      setActiveProjectId(newProject.id);
+      });
       setNewProjectName('');
       setNewProjectDesc('');
     }
@@ -252,8 +184,7 @@ const ProjectTracker: React.FC = () => {
   const handleAddIdea = (e: React.FormEvent) => {
     e.preventDefault();
     if (newIdeaTitle.trim()) {
-      const newIdea: Idea = {
-        id: Date.now().toString(),
+      addIdea({
         projectId: activeProjectId,
         title: newIdeaTitle,
         description: newIdeaDesc,
@@ -261,10 +192,7 @@ const ProjectTracker: React.FC = () => {
         status: 'backlog',
         priority: newIdeaPriority,
         tags: newIdeaTags.split(',').map(tag => tag.trim()).filter(Boolean),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      setIdeas([newIdea, ...ideas]);
+      });
       setNewIdeaTitle('');
       setNewIdeaDesc('');
       setNewIdeaTags('');
@@ -274,14 +202,16 @@ const ProjectTracker: React.FC = () => {
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTaskTitle.trim()) {
-      const newTask: Task = {
-        id: Date.now().toString(),
+      addTask({
         projectId: activeProjectId,
         title: newTaskTitle,
+        description: '',
         completed: false,
-        createdAt: new Date(),
-      };
-      setTasks([newTask, ...tasks]);
+        priority: 2,
+        phase: 'planning',
+        dueDate: undefined,
+        ideaId: undefined,
+      });
       setNewTaskTitle('');
     }
   };
@@ -296,18 +226,19 @@ const ProjectTracker: React.FC = () => {
   const handleAddResource = (e: React.FormEvent) => {
     e.preventDefault();
     if (newResourceTitle.trim() && (newResourceUrl.trim() || uploadedFile)) {
-      const newResource: Resource = {
-        id: Date.now().toString(),
+      addResource({
         projectId: activeProjectId,
         title: newResourceTitle,
         url: newResourceUrl || undefined,
-        file: uploadedFile || undefined,
+        file: uploadedFile ? { 
+          name: uploadedFile.name, 
+          size: uploadedFile.size, 
+          type: uploadedFile.type 
+        } : undefined,
         type: newResourceType,
         description: newResourceDesc,
         tags: newResourceTags.split(',').map(tag => tag.trim()).filter(Boolean),
-        createdAt: new Date(),
-      };
-      setResources([newResource, ...resources]);
+      });
       setNewResourceTitle('');
       setNewResourceUrl('');
       setNewResourceDesc('');
@@ -319,68 +250,45 @@ const ProjectTracker: React.FC = () => {
     }
   };
 
-  const toggleTask = (id: string) => {
-    setTasks(tasks.map(task => 
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+  const handleToggleTask = (id: string) => {
+    toggleTask(id);
   };
 
-  const deleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const handleDeleteTask = (id: string) => {
+    deleteTask(id);
   };
 
-  const updateIdeaStatus = (id: string, status: IdeaStatus) => {
-    setIdeas(ideas.map(idea => 
-      idea.id === id ? { ...idea, status, updatedAt: new Date() } : idea
-    ));
+  const handleUpdateIdeaStatus = (id: string, status: IdeaStatus) => {
+    updateIdea(id, { status });
   };
 
-  const deleteIdea = (id: string) => {
-    setIdeas(ideas.filter(idea => idea.id !== id));
-    setTasks(tasks.filter(task => task.ideaId !== id));
+  const handleDeleteIdea = (id: string) => {
+    deleteIdea(id);
   };
 
-  const deleteResource = (id: string) => {
-    setResources(resources.filter(resource => resource.id !== id));
+  const handleDeleteResource = (id: string) => {
+    deleteResource(id);
   };
 
-  const toggleProjectActive = (id: string) => {
-    setProjects(projects.map(project => 
-      project.id === id ? { ...project, isActive: !project.isActive } : project
-    ));
-  };
-
-  const deleteProject = (id: string) => {
-    if (projects.length <= 1) return;
-    setProjects(projects.filter(project => project.id !== id));
-    if (activeProjectId === id) {
-      setActiveProjectId(projects.filter(p => p.id !== id)[0]?.id || '');
+  const handleToggleProjectActive = (id: string) => {
+    const project = projects.find(p => p.id === id);
+    if (project) {
+      updateProject(id, { isActive: !project.isActive });
     }
   };
 
-  // Get stats for active project
-  const getProjectStats = () => {
-    const projectIdeas = ideas.filter(idea => idea.projectId === activeProjectId);
-    const projectTasks = tasks.filter(task => task.projectId === activeProjectId);
-    
-    const phaseCounts: Record<SDLCPhase, number> = {
-      planning: 0, analysis: 0, design: 0, 
-      implementation: 0, testing: 0, deployment: 0, maintenance: 0
-    };
-    
-    projectIdeas.forEach(idea => {
-      phaseCounts[idea.phase]++;
-    });
-
-    return {
-      totalIdeas: projectIdeas.length,
-      totalTasks: projectTasks.length,
-      completedTasks: projectTasks.filter(t => t.completed).length,
-      phaseCounts,
-    };
+  const handleDeleteProject = (id: string) => {
+    if (projects.length <= 1) return;
+    deleteProject(id);
   };
 
-  const stats = getProjectStats();
+  const handleSetActiveTab = (tab: 'overview' | 'ideas' | 'tasks' | 'resources') => {
+    setStoreActiveTab(tab);
+  };
+
+  const handleSetActiveProjectId = (id: string) => {
+    setActiveProject(id);
+  };
 
   // Format file size
   const formatFileSize = (bytes: number) => {
@@ -401,6 +309,7 @@ const ProjectTracker: React.FC = () => {
       >
         <h1>🌸Project Tracker</h1>
         <p className="subtitle">Find peace in your project management journey</p>
+        <p className="storage-info">💾 Data saved locally</p>
       </motion.div>
 
       <div className="main-content">
@@ -424,7 +333,7 @@ const ProjectTracker: React.FC = () => {
                 <motion.div
                   key={project.id}
                   className={`project-item ${activeProjectId === project.id ? 'active' : ''} ${!project.isActive ? 'inactive' : ''}`}
-                  onClick={() => setActiveProjectId(project.id)}
+                  onClick={() => handleSetActiveProjectId(project.id)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   whileHover={{ scale: 1.02 }}
@@ -446,7 +355,7 @@ const ProjectTracker: React.FC = () => {
                       className={`status-btn ${project.isActive ? 'active' : ''}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggleProjectActive(project.id);
+                        handleToggleProjectActive(project.id);
                       }}
                       title={project.isActive ? 'Pause project' : 'Activate project'}
                       whileHover={{ scale: 1.1 }}
@@ -458,7 +367,7 @@ const ProjectTracker: React.FC = () => {
                       className="delete-project-btn"
                       onClick={(e) => {
                         e.stopPropagation();
-                        deleteProject(project.id);
+                        handleDeleteProject(project.id);
                       }}
                       title="Delete project"
                       whileHover={{ scale: 1.1 }}
@@ -510,21 +419,22 @@ const ProjectTracker: React.FC = () => {
           <div className="zen-quote">
             <div className="quote-icon">🌿</div>
             <p>"Progress, not perfection, is what matters."</p>
+            <p className="storage-hint">All data saved automatically</p>
           </div>
         </div>
 
         {/* Main Content Area */}
         <div className="content">
           {/* Project Header */}
-          <div className="project-header" style={{ borderLeftColor: activeProject.color }}>
+          <div className="project-header" style={{ borderLeftColor: activeProject?.color || zenColors.primary }}>
             <div className="project-title">
               <div className="title-row">
-                <span className="project-icon-small" style={{ background: activeProject.color }}>
-                  {activeProject.icon}
+                <span className="project-icon-small" style={{ background: activeProject?.color || zenColors.primary }}>
+                  {activeProject?.icon || '🌸'}
                 </span>
-                <h2>{activeProject.name}</h2>
+                <h2>{activeProject?.name || 'No Project Selected'}</h2>
               </div>
-              <p>{activeProject.description}</p>
+              <p>{activeProject?.description || 'Select or create a project to get started'}</p>
             </div>
             <div className="project-stats">
               <div className="stat">
@@ -549,8 +459,8 @@ const ProjectTracker: React.FC = () => {
             {(['overview', 'ideas', 'tasks', 'resources'] as const).map(tab => (
               <motion.button
                 key={tab}
-                className={`tab-btn ${activeTab === tab ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab)}
+                className={`tab-btn ${storeActiveTab === tab ? 'active' : ''}`}
+                onClick={() => handleSetActiveTab(tab)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -566,7 +476,7 @@ const ProjectTracker: React.FC = () => {
           {/* Tab Content */}
           <div className="tab-content">
             {/* Overview Tab */}
-            {activeTab === 'overview' && (
+            {storeActiveTab === 'overview' && (
               <motion.div
                 className="overview-content"
                 initial={{ opacity: 0 }}
@@ -648,7 +558,7 @@ const ProjectTracker: React.FC = () => {
             )}
 
             {/* Ideas Tab */}
-            {activeTab === 'ideas' && (
+            {storeActiveTab === 'ideas' && (
               <motion.div
                 className="ideas-content"
                 initial={{ opacity: 0 }}
@@ -731,7 +641,7 @@ const ProjectTracker: React.FC = () => {
                             <div className="idea-actions">
                               <select
                                 value={idea.status}
-                                onChange={(e) => updateIdeaStatus(idea.id, e.target.value as IdeaStatus)}
+                                onChange={(e) => handleUpdateIdeaStatus(idea.id, e.target.value as IdeaStatus)}
                                 className="status-select"
                                 style={{ color: '#5A5560', background: statusColors[idea.status] }}
                               >
@@ -742,7 +652,7 @@ const ProjectTracker: React.FC = () => {
                                 <option value="archived">📦 Archived</option>
                               </select>
                               <motion.button
-                                onClick={() => deleteIdea(idea.id)}
+                                onClick={() => handleDeleteIdea(idea.id)}
                                 className="delete-btn"
                                 title="Delete idea"
                                 whileHover={{ scale: 1.1 }}
@@ -804,7 +714,7 @@ const ProjectTracker: React.FC = () => {
             )}
 
             {/* Tasks Tab */}
-            {activeTab === 'tasks' && (
+            {storeActiveTab === 'tasks' && (
               <motion.div
                 className="tasks-content"
                 initial={{ opacity: 0 }}
@@ -847,7 +757,7 @@ const ProjectTracker: React.FC = () => {
                         <input
                           type="checkbox"
                           checked={task.completed}
-                          onChange={() => toggleTask(task.id)}
+                          onChange={() => handleToggleTask(task.id)}
                           className="task-checkbox"
                         />
                         <span className="task-title">{task.title}</span>
@@ -857,7 +767,7 @@ const ProjectTracker: React.FC = () => {
                           </span>
                         )}
                         <motion.button
-                          onClick={() => deleteTask(task.id)}
+                          onClick={() => handleDeleteTask(task.id)}
                           className="delete-btn"
                           title="Delete task"
                           whileHover={{ scale: 1.1 }}
@@ -873,7 +783,7 @@ const ProjectTracker: React.FC = () => {
             )}
 
             {/* Resources Tab */}
-            {activeTab === 'resources' && (
+            {storeActiveTab === 'resources' && (
               <motion.div
                 className="resources-content"
                 initial={{ opacity: 0 }}
@@ -988,7 +898,7 @@ const ProjectTracker: React.FC = () => {
                             </div>
                             <h4>{resource.title}</h4>
                             <motion.button
-                              onClick={() => deleteResource(resource.id)}
+                              onClick={() => handleDeleteResource(resource.id)}
                               className="delete-btn"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
@@ -1047,7 +957,7 @@ const ProjectTracker: React.FC = () => {
 
       {/* Footer */}
       <div className="footer">
-        <p>🌸 Find your flow, one project at a time</p>
+        <p>🌸 Find your flow, one project at a time • Data saved locally 💾</p>
       </div>
 
       <style>{`

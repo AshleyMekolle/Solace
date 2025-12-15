@@ -13,7 +13,7 @@ interface Goal {
   category: GoalCategory;
   frequency: GoalFrequency;
   status: GoalStatus;
-  targetCount: number; // e.g., 1 for daily, 3 for weekly
+  targetCount: number;
   currentCount: number;
   streak: number;
   bestStreak: number;
@@ -30,8 +30,30 @@ interface DailyProgress {
 }
 
 const GoalTracker: React.FC = () => {
-  // State
-  const [goals, setGoals] = useState<Goal[]>([
+  // Load initial data from localStorage
+  const loadFromStorage = () => {
+    try {
+      const savedGoals = localStorage.getItem('zen-goals');
+      const savedProgress = localStorage.getItem('zen-goal-progress');
+      
+      if (savedGoals) {
+        return {
+          goals: JSON.parse(savedGoals).map((goal: any) => ({
+            ...goal,
+            createdAt: new Date(goal.createdAt),
+            lastCompleted: goal.lastCompleted ? new Date(goal.lastCompleted) : null
+          })),
+          progress: savedProgress ? JSON.parse(savedProgress) : []
+        };
+      }
+    } catch (error) {
+      console.error('Error loading from localStorage:', error);
+    }
+    return null;
+  };
+
+  // Default data for first-time users
+  const defaultGoals: Goal[] = [
     {
       id: '1',
       title: 'Daily GitHub Commit',
@@ -132,9 +154,9 @@ const GoalTracker: React.FC = () => {
         completed: true
       }))
     }
-  ]);
+  ];
 
-  const [dailyProgress, setDailyProgress] = useState<DailyProgress[]>([
+  const defaultDailyProgress: DailyProgress[] = [
     {
       date: new Date().toISOString().split('T')[0],
       goals: [
@@ -145,7 +167,18 @@ const GoalTracker: React.FC = () => {
         { goalId: '5', completed: true }
       ]
     }
-  ]);
+  ];
+
+  // State with localStorage initialization
+  const [goals, setGoals] = useState<Goal[]>(() => {
+    const loaded = loadFromStorage();
+    return loaded?.goals || defaultGoals;
+  });
+
+  const [dailyProgress, setDailyProgress] = useState<DailyProgress[]>(() => {
+    const loaded = loadFromStorage();
+    return loaded?.progress || defaultDailyProgress;
+  });
 
   const [activeTab, setActiveTab] = useState<'today' | 'goals' | 'stats' | 'history'>('today');
   const [selectedGoalId, setSelectedGoalId] = useState<string | null>(null);
@@ -156,6 +189,16 @@ const GoalTracker: React.FC = () => {
   const [newGoalCategory, setNewGoalCategory] = useState<GoalCategory>('personal');
   const [newGoalFrequency, setNewGoalFrequency] = useState<GoalFrequency>('daily');
   const [newGoalTarget, setNewGoalTarget] = useState<number>(1);
+
+  // Save to localStorage whenever goals or progress changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('zen-goals', JSON.stringify(goals));
+      localStorage.setItem('zen-goal-progress', JSON.stringify(dailyProgress));
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  }, [goals, dailyProgress]);
 
   // Zen Color Palette
   const zenColors = {

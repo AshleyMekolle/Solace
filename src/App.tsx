@@ -214,6 +214,7 @@ const App: React.FC = () => {
 
         .nav {
           display: flex;
+          font-family: 'Poppins', sans-serif;
           gap: 10px;
           margin-bottom: 30px;
           background: white;
@@ -338,6 +339,7 @@ const App: React.FC = () => {
           background: #5B8FB9;
           color: white;
           border-radius: 8px;
+          font-family: 'Poppins', sans-serif;
           font-size: 1rem;
           font-weight: 500;
           cursor: pointer;
