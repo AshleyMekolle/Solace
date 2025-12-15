@@ -1055,7 +1055,7 @@ const ProjectTracker: React.FC = () => {
           min-height: 100vh;
           background: linear-gradient(135deg, ${zenColors.background} 0%, #FFEFF7 100%);
           padding: 20px;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: 'Poppins', sans-serif;
           color: ${zenColors.text};
         }
 
