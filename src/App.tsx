@@ -7,8 +7,8 @@ import FocusTimer from './FocusTimer';
 // Sample data for the dashboard
 const sampleData = {
   tasks: {
-    total: 24,
-    completed: 18,
+    total: 2,
+    completed: 1,
     pending: 6,
     recent: [
       { id: 1, title: 'Design homepage mockup', project: 'Website Redesign', due: 'Today', priority: 'high' },
@@ -22,7 +22,7 @@ const sampleData = {
     streak: 7,
     recent: [
       { id: 1, title: 'Daily workout', category: 'health', streak: 7, icon: '💪' },
-      { id: 2, title: 'Learn French', category: 'learning', streak: 14, icon: '🇫🇷' },
+      { id: 2, title: 'Commit to Github', category: 'learning', streak: 14, icon: '🇫🇷' },
       { id: 3, title: 'Meditation', category: 'wellness', streak: 3, icon: '🧘‍♀️' },
     ]
   },
@@ -337,33 +337,6 @@ const App: React.FC = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Focus Stats */}
-                  <div className="widget focus-widget">
-                    <h3 className="widget-title">⏱️ Focus Stats</h3>
-                    <div className="focus-stats">
-                      <div className="focus-stat">
-                        <div className="stat-value">{sampleData.focus.sessions}</div>
-                        <div className="stat-label">Total Sessions</div>
-                      </div>
-                      <div className="focus-stat">
-                        <div className="stat-value">{sampleData.focus.totalTime}</div>
-                        <div className="stat-label">Focus Time</div>
-                      </div>
-                      <div className="focus-stat">
-                        <div className="stat-value">{sampleData.focus.today}</div>
-                        <div className="stat-label">Today</div>
-                      </div>
-                    </div>
-                    <motion.button 
-                      className="focus-button"
-                      onClick={() => setActiveTab('focus')}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      🚀 Start Focus Session
-                    </motion.button>
                   </div>
 
                   {/* Daily Inspiration */}
