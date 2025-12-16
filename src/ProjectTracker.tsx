@@ -308,8 +308,7 @@ const ProjectTracker: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1>🌸Project Tracker</h1>
-        <p className="subtitle">Find peace in your project management journey</p>
-        <p className="storage-info">💾 Data saved locally</p>
+        {/* <p className="subtitle">Start your project management journey</p> */}
       </motion.div>
 
       <div className="main-content">
@@ -419,7 +418,7 @@ const ProjectTracker: React.FC = () => {
           <div className="zen-quote">
             <div className="quote-icon">🌿</div>
             <p>"Progress, not perfection, is what matters."</p>
-            <p className="storage-hint">All data saved automatically</p>
+            {/* <p className="storage-hint">All data saved automatically</p> */}
           </div>
         </div>
 
@@ -957,7 +956,7 @@ const ProjectTracker: React.FC = () => {
 
       {/* Footer */}
       <div className="footer">
-        <p>🌸 Find your flow, one project at a time • Data saved locally 💾</p>
+        <p>🌸 Manage your time, one project at a time • *Data saved locally 💾</p>
       </div>
 
       <style>{`
