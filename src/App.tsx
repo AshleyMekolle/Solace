@@ -11,9 +11,8 @@ const sampleData = {
     completed: 1,
     pending: 6,
     recent: [
-      { id: 1, title: 'Design homepage mockup', project: 'Website Redesign', due: 'Today', priority: 'high' },
-      { id: 2, title: 'Write API documentation', project: 'Mobile App', due: 'Tomorrow', priority: 'medium' },
-      { id: 3, title: 'Review pull requests', project: 'GitHub', due: 'Today', priority: 'high' },
+      { id: 1, title: 'Write API documentation', project: 'Mobile App', due: 'Tomorrow', priority: 'medium' },
+      { id: 2, title: 'Review pull requests', project: 'GitHub', due: 'Today', priority: 'high' },
     ]
   },
   goals: {
