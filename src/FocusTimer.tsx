@@ -181,9 +181,9 @@ const FocusTimer: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1>{currentTheme.icon} Zen Focus Timer</h1>
-        <p className="subtitle">Find your flow, one pomodoro at a time</p>
-        <p className="storage-info">💾 Timer settings saved locally</p>
+        <h1>{currentTheme.icon} Focus Timer</h1>
+        {/* <p className="subtitle">Find your flow, one pomodoro at a time</p>
+        <p className="storage-info">💾 Timer settings saved locally</p> */}
       </motion.div>
 
       <div className="main-content">

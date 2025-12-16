@@ -52,10 +52,10 @@ const App: React.FC = () => {
   }, []);
 
   const tabs: { id: TabType; label: string; icon: string; color: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊', color: '#FF9BC9' },
-    { id: 'projects', label: 'Projects', icon: '📋', color: '#A1E8D9' },
-    { id: 'goals', label: 'Goals', icon: '🎯', color: '#BDB2FF' },
-    { id: 'focus', label: 'Focus', icon: '⏱️', color: '#FFD6A5' },
+    { id: 'dashboard', label: 'Dashboard', icon: '📊', color: '#4A90E2' },
+    { id: 'projects', label: 'Projects', icon: '📋', color: '#50C878' },
+    { id: 'goals', label: 'Goals', icon: '🎯', color: '#7B68EE' },
+    { id: 'focus', label: 'Focus', icon: '⏱️', color: '#FF8C42' },
   ];
 
   const greetings = {
@@ -65,13 +65,13 @@ const App: React.FC = () => {
   };
 
   const zenColors = {
-    primary: '#FF9BC9',
-    secondary: '#A1E8D9',
-    background: '#FFF9F9',
+    primary: '#4A90E2',
+    secondary: '#50C878',
+    background: '#F5F7FA',
     surface: '#FFFFFF',
-    text: '#5A5560',
-    lightText: '#9D8BA5',
-    border: '#F0D9E7',
+    text: '#2D3748',
+    lightText: '#718096',
+    border: '#E2E8F0',
   };
 
   // Quick action handlers
@@ -103,7 +103,7 @@ const App: React.FC = () => {
       >
         <div className="header-left">
           <h1 className="logo">
-            <span className="logo-icon">🌸</span>
+            <span className="logo-icon">⚡</span>
             SolaceFlow
           </h1>
           <div className="greeting">
@@ -327,11 +327,11 @@ const App: React.FC = () => {
                   <div className="widget inspiration-widget">
                     <h3 className="widget-title">✨ Daily Inspiration</h3>
                     <div className="inspiration-content">
-                      <div className="inspiration-emoji">🌸</div>
+                      <div className="inspiration-emoji">⚡</div>
                       <p className="inspiration-text">
                         "Small daily improvements are the key to staggering long-term results."
                       </p>
-                      <div className="inspiration-author">– Anonnymous</div>
+                      <div className="inspiration-author">– Anonymous</div>
                     </div>
                   </div>
                 </div>
@@ -742,13 +742,13 @@ const App: React.FC = () => {
         }
 
         .task-priority.high {
-          background: #FF9BC9;
+          background: #4A90E2;
           color: white;
         }
 
         .task-priority.medium {
-          background: #FFD6A5;
-          color: ${zenColors.text};
+          background: #FF8C42;
+          color: white;
         }
 
         /* Goals List */
@@ -870,7 +870,7 @@ const App: React.FC = () => {
         }
 
         .focus-button:hover {
-          background: #FF7BB3;
+          background: #3A80D2;
           transform: translateY(-2px);
           box-shadow: 0 6px 20px ${zenColors.primary}60;
         }

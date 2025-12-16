@@ -114,46 +114,7 @@ const GoalTracker: React.FC = () => {
         completed: i < 5
       }))
     },
-    {
-      id: '4',
-      title: 'Meditate',
-      description: '10 minutes of mindfulness',
-      category: 'personal',
-      frequency: 'daily',
-      status: 'active',
-      targetCount: 1,
-      currentCount: 0,
-      streak: 0,
-      bestStreak: 12,
-      color: '#FFD6A5',
-      icon: '🧘‍♀️',
-      createdAt: new Date('2024-01-12'),
-      lastCompleted: null,
-      history: Array.from({ length: 7 }, (_, i) => ({
-        date: new Date(Date.now() - (6 - i) * 86400000).toISOString().split('T')[0],
-        completed: false
-      }))
-    },
-    {
-      id: '5',
-      title: 'Learn French',
-      description: 'Practice on Duolingo',
-      category: 'learning',
-      frequency: 'daily',
-      status: 'active',
-      targetCount: 1,
-      currentCount: 1,
-      streak: 14,
-      bestStreak: 14,
-      color: '#CAFFBF',
-      icon: '🇫🇷',
-      createdAt: new Date('2024-01-15'),
-      lastCompleted: new Date(),
-      history: Array.from({ length: 7 }, (_, i) => ({
-        date: new Date(Date.now() - (6 - i) * 86400000).toISOString().split('T')[0],
-        completed: true
-      }))
-    }
+
   ];
 
   const defaultDailyProgress: DailyProgress[] = [
@@ -163,8 +124,6 @@ const GoalTracker: React.FC = () => {
         { goalId: '1', completed: true },
         { goalId: '2', completed: true },
         { goalId: '3', completed: true },
-        { goalId: '4', completed: false },
-        { goalId: '5', completed: true }
       ]
     }
   ];
