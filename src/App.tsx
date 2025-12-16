@@ -87,7 +87,6 @@ const App: React.FC = () => {
         setActiveTab('focus');
         break;
       case 'quickNote':
-        // Would open a note modal
         alert('Quick note feature would open here');
         break;
     }
@@ -332,7 +331,7 @@ const App: React.FC = () => {
                       <p className="inspiration-text">
                         "Small daily improvements are the key to staggering long-term results."
                       </p>
-                      <div className="inspiration-author">– Zen Proverb</div>
+                      <div className="inspiration-author">– Anonnymous</div>
                     </div>
                   </div>
                 </div>
