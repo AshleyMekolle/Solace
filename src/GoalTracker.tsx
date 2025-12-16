@@ -1183,6 +1183,7 @@ const GoalTracker: React.FC = () => {
 
         .tab-btn {
           padding: 12px 24px;
+          font-family: 'Poppins', sans-serif;
           border: none;
           background: none;
           font-weight: 600;
@@ -1474,7 +1475,6 @@ const GoalTracker: React.FC = () => {
           font-size: 1rem;
           background: white;
           color: ${zenColors.text};
-          font-family: inherit;
           transition: all 0.3s;
         }
 

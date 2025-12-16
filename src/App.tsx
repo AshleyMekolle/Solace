@@ -431,7 +431,7 @@ const App: React.FC = () => {
         }
 
         body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-family: 'Poppins', sans-serif;
           background: ${zenColors.background};
           color: ${zenColors.text};
         }
@@ -561,6 +561,7 @@ const App: React.FC = () => {
           box-shadow: 0 8px 32px rgba(0,0,0,0.05);
           border: 1px solid ${zenColors.border};
           min-height: 600px;
+          font-family: 'Poppins', sans-serif;
         }
 
         /* Dashboard */

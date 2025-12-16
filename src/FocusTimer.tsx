@@ -413,26 +413,6 @@ const FocusTimer: React.FC = () => {
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="stats-section">
-            <h3 style={{ color: currentTheme.text }}>📊 Statistics</h3>
-            <div className="stats-grid">
-              <div className="stat-item">
-                <span className="stat-number">{pomodoroCount}</span>
-                <span className="stat-label" style={{ color: currentTheme.lightText }}>Pomodoros</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">{formatTime(pomodoroCount * 25 * 60)}</span>
-                <span className="stat-label" style={{ color: currentTheme.lightText }}>Focus Time</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">
-                  {mode === 'focus' ? '🎯' : mode === 'shortBreak' ? '☕' : '🌴'}
-                </span>
-                <span className="stat-label" style={{ color: currentTheme.lightText }}>Current</span>
-              </div>
-            </div>
-          </div>
         </motion.div>
       </div>
 

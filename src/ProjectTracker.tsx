@@ -1331,7 +1331,6 @@ const ProjectTracker: React.FC = () => {
           transition: all 0.3s;
           background: ${zenColors.background};
           color: ${zenColors.text};
-          font-family: inherit;
         }
 
         .form-input::placeholder,
