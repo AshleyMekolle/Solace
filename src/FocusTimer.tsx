@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTimerStore, themes, timerPresets, soundFiles } from './timerStore'; // Adjust import path
+import { useTimerStore, themes, timerPresets, soundFiles } from './timerStore'; 
 
 const FocusTimer: React.FC = () => {
   // Use timer store
@@ -450,11 +450,11 @@ const FocusTimer: React.FC = () => {
             <h4>Single Tasking</h4>
             <p>Focus on one task at a time for maximum productivity.</p>
           </div>
-          <div className="tip-card" style={{ borderColor: currentTheme.secondary }}>
+          {/* <div className="tip-card" style={{ borderColor: currentTheme.secondary }}>
             <div className="tip-icon">⏰</div>
             <h4>Time Boxing</h4>
             <p>Use the timer to create dedicated focus blocks.</p>
-          </div>
+          </div> */}
           <div className="tip-card" style={{ borderColor: currentTheme.primary }}>
             <div className="tip-icon">🌿</div>
             <h4>Regular Breaks</h4>

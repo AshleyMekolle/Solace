@@ -107,11 +107,11 @@ const App: React.FC = () => {
         <div className="header-left">
           <h1 className="logo">
             <span className="logo-icon">🌸</span>
-            ZenFlow
+            SolaceFlow
           </h1>
           <div className="greeting">
             <span className="greeting-emoji">{greetings[timeOfDay].emoji}</span>
-            <span className="greeting-text">{greetings[timeOfDay].text}, let's make today peaceful</span>
+            <span className="greeting-text">{greetings[timeOfDay].text}, let's make today productive</span>
           </div>
         </div>
         <div className="header-right">

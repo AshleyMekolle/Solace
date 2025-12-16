@@ -450,7 +450,7 @@ const GoalTracker: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="header-content">
-          <h1>🌸 Zen Goal Tracker</h1>
+          <h1>🌸 Goal Tracker</h1>
           <p className="subtitle">{getMotivationalMessage()}</p>
         </div>
         <div className="header-stats">
