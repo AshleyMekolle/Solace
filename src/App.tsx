@@ -22,8 +22,7 @@ const sampleData = {
     streak: 7,
     recent: [
       { id: 1, title: 'Daily workout', category: 'health', streak: 7, icon: '💪' },
-      { id: 2, title: 'Commit to Github', category: 'learning', streak: 14, icon: '🇫🇷' },
-      { id: 3, title: 'Meditation', category: 'wellness', streak: 3, icon: '🧘‍♀️' },
+      { id: 2, title: 'Daily GitHub Commit', category: 'productivity', streak: 2, icon: '💻' },
     ]
   },
   focus: {
@@ -188,19 +187,6 @@ const App: React.FC = () => {
                     <div className="stat-value">{sampleData.goals.active}</div>
                     <div className="stat-label">Active Goals</div>
                     <div className="stat-subtext">{sampleData.goals.streak} day streak</div>
-                  </div>
-                </motion.div>
-
-                <motion.div 
-                  className="stat-card"
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="stat-icon">⏱️</div>
-                  <div className="stat-content">
-                    <div className="stat-value">{sampleData.focus.today}</div>
-                    <div className="stat-label">Focus Sessions</div>
-                    <div className="stat-subtext">{sampleData.focus.avgSession} avg</div>
                   </div>
                 </motion.div>
 

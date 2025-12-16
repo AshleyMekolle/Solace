@@ -63,7 +63,7 @@ const GoalTracker: React.FC = () => {
       status: 'active',
       targetCount: 1,
       currentCount: 1,
-      streak: 7,
+      streak: 2,
       bestStreak: 10,
       color: '#FF9BC9',
       icon: '💻',
