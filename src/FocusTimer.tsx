@@ -92,9 +92,9 @@ const FocusTimer: React.FC = () => {
         ? 'Focus session complete! Take a break.' 
         : 'Break time is over! Ready to focus?';
       
-      new Notification('🌸 Zen Timer', {
+      new Notification('⏱️ Zen Timer', {
         body: message,
-        icon: 'https://emojicdn.elk.sh/🌸',
+        icon: 'https://emojicdn.elk.sh/⏱️',
       });
     } else {
       setTimeout(() => {
@@ -159,12 +159,12 @@ const FocusTimer: React.FC = () => {
   // Get motivational messages
   const getMotivationalMessage = () => {
     if (mode === 'focus') {
-      if (time > 20 * 60) return "Begin your journey 🌱";
-      if (time > 10 * 60) return "Stay focused 🌟";
-      if (time > 5 * 60) return "Almost there! ✨";
+      if (time > 20 * 60) return "Begin your journey ⚡";
+      if (time > 10 * 60) return "Stay focused 🔥";
+      if (time > 5 * 60) return "Almost there! 🚀";
       return "Final stretch! 🎯";
     } else {
-      if (time > 2 * 60) return "Relax and recharge 🌿";
+      if (time > 2 * 60) return "Relax and recharge 🌊";
       return "Get ready to focus again! ⚡";
     }
   };
@@ -436,7 +436,7 @@ const FocusTimer: React.FC = () => {
             <p>Use the timer to create dedicated focus blocks.</p>
           </div> */}
           <div className="tip-card" style={{ borderColor: currentTheme.primary }}>
-            <div className="tip-icon">🌿</div>
+            <div className="tip-icon">🌊</div>
             <h4>Regular Breaks</h4>
             <p>Take breaks to maintain focus and prevent burnout.</p>
           </div>
@@ -453,17 +453,17 @@ const FocusTimer: React.FC = () => {
         <motion.button
           onClick={() => {
             if ('Notification' in window && Notification.permission === 'granted') {
-              new Notification('🌸 Zen Timer', {
+              new Notification('⏱️ Zen Timer', {
                 body: 'This is a test notification! Your timer notifications are working.',
-                icon: 'https://emojicdn.elk.sh/🌸',
+                icon: 'https://emojicdn.elk.sh/⏱️',
               });
             } else if ('Notification' in window && Notification.permission === 'default') {
               Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
                   notificationPermissionRef.current = true;
-                  new Notification('🌸 Zen Timer', {
+                  new Notification('⏱️ Zen Timer', {
                     body: 'Notifications enabled! You\'ll be notified when timers complete.',
-                    icon: 'https://emojicdn.elk.sh/🌸',
+                    icon: 'https://emojicdn.elk.sh/⏱️',
                   });
                 }
               });
@@ -479,7 +479,59 @@ const FocusTimer: React.FC = () => {
           🔔 Test Notifications
         </motion.button>
       </div>
- <style>{`
+
+      {/* IMPORTANT: Update the themes in timerStore.ts with these unisex colors */}
+      <style>{`
+        /* This would be the updated themes in your timerStore.ts */
+        /* 
+        export const themes = {
+          zen: {
+            name: 'Zen',
+            icon: '⚡',
+            primary: '#4A90E2',
+            secondary: '#50C878',
+            background: '#F5F7FA',
+            surface: '#FFFFFF',
+            text: '#2D3748',
+            lightText: '#718096',
+            border: '#E2E8F0',
+          },
+          forest: {
+            name: 'Forest',
+            icon: '🌿',
+            primary: '#50C878',
+            secondary: '#20B2AA',
+            background: '#F0FFF4',
+            surface: '#FFFFFF',
+            text: '#2D3748',
+            lightText: '#718096',
+            border: '#C6F6D5',
+          },
+          ocean: {
+            name: 'Ocean',
+            icon: '🌊',
+            primary: '#4A90E2',
+            secondary: '#4169E1',
+            background: '#EBF4FF',
+            surface: '#FFFFFF',
+            text: '#2D3748',
+            lightText: '#718096',
+            border: '#C3DDFD',
+          },
+          sunset: {
+            name: 'Sunset',
+            icon: '🌅',
+            primary: '#FF8C42',
+            secondary: '#FF6B6B',
+            background: '#FFF7ED',
+            surface: '#FFFFFF',
+            text: '#2D3748',
+            lightText: '#718096',
+            border: '#FED7AA',
+          },
+        };
+        */
+
         .focus-timer {
           min-height: 100vh;
           padding: 30px;
