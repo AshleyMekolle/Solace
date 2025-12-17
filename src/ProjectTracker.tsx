@@ -97,61 +97,61 @@ const ProjectTracker: React.FC = () => {
   // File upload ref
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Zen Color Palette
+  // Zen Color Palette - UPDATED TO UNISEX & MINIMALIST
   const zenColors = {
-    primary: '#FF9BC9',      // Soft Pink
-    secondary: '#A1E8D9',    // Mint Green
-    tertiary: '#FFC8DD',     // Light Pink
-    accent: '#BDB2FF',       // Lavender
-    background: '#FFF9F9',   // Almost White Pink
-    surface: '#FFFFFF',      // White
-    text: '#5A5560',         // Soft Gray
-    lightText: '#9D8BA5',    // Light Gray
-    border: '#F0D9E7',       // Very Light Pink
-    success: '#A1E8D9',      // Mint
-    warning: '#FFD6A5',      // Peach
-    error: '#FF9BC9',        // Pink
+    primary: '#4A90E2',      // Professional Blue
+    secondary: '#50C878',    // Fresh Green
+    tertiary: '#7B68EE',     // Modern Purple
+    accent: '#FF8C42',       // Warm Orange
+    background: '#F5F7FA',   // Light Gray Background
+    surface: '#FFFFFF',      // White Surface
+    text: '#2D3748',         // Dark Gray Text
+    lightText: '#718096',    // Medium Gray Text
+    border: '#E2E8F0',       // Light Gray Border
+    success: '#50C878',      // Green Success
+    warning: '#FF8C42',      // Orange Warning
+    error: '#FF6B6B',        // Red Error
   };
 
-  // SDLC Phases with zen colors
+  // SDLC Phases with zen colors - UPDATED
   const sdlcPhases: { id: SDLCPhase; name: string; description: string; color: string; icon: string }[] = [
-    { id: 'planning', name: 'Planning', description: 'Define project scope and requirements', color: '#BDB2FF', icon: '📋' },
-    { id: 'analysis', name: 'Analysis', description: 'Analyze requirements and feasibility', color: '#A1E8D9', icon: '🔍' },
-    { id: 'design', name: 'Design', description: 'Create system architecture and UI/UX', color: '#FFC8DD', icon: '🎨' },
-    { id: 'implementation', name: 'Implementation', description: 'Write code and develop features', color: '#FF9BC9', icon: '💻' },
-    { id: 'testing', name: 'Testing', description: 'Test and fix bugs', color: '#FFD6A5', icon: '🧪' },
-    { id: 'deployment', name: 'Deployment', description: 'Deploy to production', color: '#CAFFBF', icon: '🚀' },
-    { id: 'maintenance', name: 'Maintenance', description: 'Maintain and update', color: '#D6CCC2', icon: '🛠️' },
+    { id: 'planning', name: 'Planning', description: 'Define project scope and requirements', color: '#4A90E2', icon: '📋' },
+    { id: 'analysis', name: 'Analysis', description: 'Analyze requirements and feasibility', color: '#7B68EE', icon: '🔍' },
+    { id: 'design', name: 'Design', description: 'Create system architecture and UI/UX', color: '#50C878', icon: '🎨' },
+    { id: 'implementation', name: 'Implementation', description: 'Write code and develop features', color: '#FF8C42', icon: '💻' },
+    { id: 'testing', name: 'Testing', description: 'Test and fix bugs', color: '#FF6B6B', icon: '🧪' },
+    { id: 'deployment', name: 'Deployment', description: 'Deploy to production', color: '#20B2AA', icon: '🚀' },
+    { id: 'maintenance', name: 'Maintenance', description: 'Maintain and update', color: '#708090', icon: '🛠️' },
   ];
 
-  // Project icons
-  const projectIcons = ['🌸', '🌺', '🌷', '🌼', '🌻', '💐', '🌹', '🌿', '🍃', '💮'];
+  // Project icons - UPDATED to more neutral/universal icons
+  const projectIcons = ['📁', '📊', '💼', '🎯', '⚡', '🚀', '🔧', '📈', '💡', '⚙️'];
 
-  // Priority colors
+  // Priority colors - UPDATED
   const priorityColors = {
-    0: '#FF9BC9',
-    1: '#FFB6C1',
-    2: '#A1E8D9',
-    3: '#BDB2FF',
+    0: '#FF6B6B',  // Red for critical
+    1: '#FF8C42',  // Orange for high
+    2: '#4A90E2',  // Blue for medium
+    3: '#718096',  // Gray for low
   };
 
-  // Status colors
+  // Status colors - UPDATED
   const statusColors = {
-    'backlog': '#D6CCC2',
-    'active': '#BDB2FF',
-    'in-progress': '#A1E8D9',
-    'completed': '#CAFFBF',
-    'archived': '#FFD6A5',
+    'backlog': '#718096',
+    'active': '#4A90E2',
+    'in-progress': '#7B68EE',
+    'completed': '#50C878',
+    'archived': '#708090',
   };
 
-  // Resource type icons and colors
+  // Resource type icons and colors - UPDATED
   const resourceTypes = {
-    'image': { icon: '🖼️', color: '#FF9BC9', bg: '#FFF0F5' },
-    'document': { icon: '📄', color: '#A1E8D9', bg: '#F0FFF9' },
-    'link': { icon: '🔗', color: '#BDB2FF', bg: '#F8F7FF' },
-    'audio': { icon: '🎵', color: '#FFD6A5', bg: '#FFF9F0' },
-    'video': { icon: '🎬', color: '#FFB6C1', bg: '#FFF0F5' },
-    'other': { icon: '📁', color: '#D6CCC2', bg: '#F9F6F2' },
+    'image': { icon: '🖼️', color: '#4A90E2', bg: '#EBF4FF' },
+    'document': { icon: '📄', color: '#50C878', bg: '#F0FFF4' },
+    'link': { icon: '🔗', color: '#7B68EE', bg: '#F5F3FF' },
+    'audio': { icon: '🎵', color: '#FF8C42', bg: '#FFF7ED' },
+    'video': { icon: '🎬', color: '#FF6B6B', bg: '#FFF5F5' },
+    'other': { icon: '📁', color: '#718096', bg: '#F7FAFC' },
   };
 
   // Get active project
@@ -307,7 +307,7 @@ const ProjectTracker: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1>🌸Project Tracker</h1>
+        <h1>📊 Project Tracker</h1>
         {/* <p className="subtitle">Start your project management journey</p> */}
       </motion.div>
 
@@ -315,7 +315,7 @@ const ProjectTracker: React.FC = () => {
         {/* Projects Sidebar */}
         <div className="sidebar">
           <div className="sidebar-header">
-            <h3>🌸 My Projects</h3>
+            <h3>📁 My Projects</h3>
             <motion.button 
               className="new-project-btn"
               onClick={() => document.getElementById('project-form')?.scrollIntoView()}
@@ -388,7 +388,7 @@ const ProjectTracker: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <h4>🌱 New Project</h4>
+            <h4>➕ New Project</h4>
             <input
               type="text"
               value={newProjectName}
@@ -410,13 +410,13 @@ const ProjectTracker: React.FC = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              🌸 Create Project
+              📁 Create Project
             </motion.button>
           </motion.form>
 
           {/* Zen Quote */}
           <div className="zen-quote">
-            <div className="quote-icon">🌿</div>
+            <div className="quote-icon">⚡</div>
             <p>"Progress, not perfection, is what matters."</p>
             {/* <p className="storage-hint">All data saved automatically</p> */}
           </div>
@@ -429,7 +429,7 @@ const ProjectTracker: React.FC = () => {
             <div className="project-title">
               <div className="title-row">
                 <span className="project-icon-small" style={{ background: activeProject?.color || zenColors.primary }}>
-                  {activeProject?.icon || '🌸'}
+                  {activeProject?.icon || '📁'}
                 </span>
                 <h2>{activeProject?.name || 'No Project Selected'}</h2>
               </div>
@@ -463,8 +463,8 @@ const ProjectTracker: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {tab === 'overview' && '🌿'}
-                {tab === 'ideas' && '💭'}
+                {tab === 'overview' && '📊'}
+                {tab === 'ideas' && '💡'}
                 {tab === 'tasks' && '📝'}
                 {tab === 'resources' && '📚'}
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -483,7 +483,7 @@ const ProjectTracker: React.FC = () => {
               >
                 {/* SDLC Phase Overview */}
                 <div className="sdlc-overview">
-                  <h3>🌱 Project Journey</h3>
+                  <h3>📈 Project Journey</h3>
                   <div className="phase-grid">
                     {sdlcPhases.map(phase => (
                       <motion.div
@@ -509,7 +509,7 @@ const ProjectTracker: React.FC = () => {
 
                 {/* Recent Ideas */}
                 <div className="recent-section">
-                  <h3>💭 Recent Ideas</h3>
+                  <h3>💡 Recent Ideas</h3>
                   <div className="ideas-list">
                     {projectIdeas.slice(0, 5).map(idea => {
                       const phase = sdlcPhases.find(p => p.id === idea.phase);
@@ -539,7 +539,7 @@ const ProjectTracker: React.FC = () => {
                               className="status-badge"
                               style={{ 
                                 background: statusColors[idea.status],
-                                color: '#5A5560'
+                                color: '#FFF'
                               }}
                             >
                               {idea.status}
@@ -565,7 +565,7 @@ const ProjectTracker: React.FC = () => {
               >
                 {/* Add Idea Form */}
                 <form onSubmit={handleAddIdea} className="idea-form">
-                  <h3>💭 New Idea</h3>
+                  <h3>💡 New Idea</h3>
                   <input
                     type="text"
                     value={newIdeaTitle}
@@ -597,10 +597,10 @@ const ProjectTracker: React.FC = () => {
                       onChange={(e) => setNewIdeaPriority(parseInt(e.target.value) as Priority)}
                       className="form-select"
                     >
-                      <option value={0}>🌸 Critical</option>
-                      <option value={1}>🌺 High</option>
-                      <option value={2}>🌷 Medium</option>
-                      <option value={3}>🌿 Low</option>
+                      <option value={0}>🔴 Critical</option>
+                      <option value={1}>🟠 High</option>
+                      <option value={2}>🔵 Medium</option>
+                      <option value={3}>⚪ Low</option>
                     </select>
                   </div>
                   <input
@@ -616,7 +616,7 @@ const ProjectTracker: React.FC = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    🌸 Add Idea
+                    💡 Add Idea
                   </motion.button>
                 </form>
 
@@ -642,11 +642,11 @@ const ProjectTracker: React.FC = () => {
                                 value={idea.status}
                                 onChange={(e) => handleUpdateIdeaStatus(idea.id, e.target.value as IdeaStatus)}
                                 className="status-select"
-                                style={{ color: '#5A5560', background: statusColors[idea.status] }}
+                                style={{ color: '#FFF', background: statusColors[idea.status] }}
                               >
                                 <option value="backlog">📥 Backlog</option>
-                                <option value="active">🌟 Active</option>
-                                <option value="in-progress">🌱 In Progress</option>
+                                <option value="active">⚡ Active</option>
+                                <option value="in-progress">🔄 In Progress</option>
                                 <option value="completed">✅ Completed</option>
                                 <option value="archived">📦 Archived</option>
                               </select>
@@ -681,13 +681,13 @@ const ProjectTracker: React.FC = () => {
                                 className="priority-badge"
                                 style={{ 
                                   background: priorityColors[idea.priority],
-                                  color: '#5A5560'
+                                  color: '#FFF'
                                 }}
                               >
-                                {idea.priority === 0 && '🌸'}
-                                {idea.priority === 1 && '🌺'}
-                                {idea.priority === 2 && '🌷'}
-                                {idea.priority === 3 && '🌿'}
+                                {idea.priority === 0 && '🔴'}
+                                {idea.priority === 1 && '🟠'}
+                                {idea.priority === 2 && '🔵'}
+                                {idea.priority === 3 && '⚪'}
                                 P{idea.priority}
                               </span>
                             </div>
@@ -695,7 +695,7 @@ const ProjectTracker: React.FC = () => {
                           {idea.tags.length > 0 && (
                             <div className="idea-tags">
                               {idea.tags.map(tag => (
-                                <span key={tag} className="tag">#{tag}</span>
+                                <span key={tag} className="tag">🏷️ #{tag}</span>
                               ))}
                             </div>
                           )}
@@ -736,7 +736,7 @@ const ProjectTracker: React.FC = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    🌸 Add Task
+                    📝 Add Task
                   </motion.button>
                 </form>
 
@@ -762,7 +762,7 @@ const ProjectTracker: React.FC = () => {
                         <span className="task-title">{task.title}</span>
                         {task.ideaId && (
                           <span className="task-idea">
-                            💭 {ideas.find(i => i.id === task.ideaId)?.title}
+                            💡 {ideas.find(i => i.id === task.ideaId)?.title}
                           </span>
                         )}
                         <motion.button
@@ -930,7 +930,7 @@ const ProjectTracker: React.FC = () => {
                             {resource.tags.length > 0 && (
                               <div className="resource-tags">
                                 {resource.tags.map(tag => (
-                                  <span key={tag} className="tag">🏷️ {tag}</span>
+                                  <span key={tag} className="tag">🏷️ #{tag}</span>
                                 ))}
                               </div>
                             )}
@@ -956,13 +956,13 @@ const ProjectTracker: React.FC = () => {
 
       {/* Footer */}
       <div className="footer">
-        <p>🌸 Manage your time, one project at a time • *Data saved locally 💾</p>
+        <p>📊 Manage your time, one project at a time • *Data saved locally 💾</p>
       </div>
 
       <style>{`
         .project-tracker {
           min-height: 100vh;
-          background: linear-gradient(135deg, ${zenColors.background} 0%, #FFEFF7 100%);
+          background: linear-gradient(135deg, ${zenColors.background} 0%, #EBF4FF 100%);
           padding: 20px;
           font-family: 'Poppins', sans-serif;
           color: ${zenColors.text};
@@ -973,7 +973,7 @@ const ProjectTracker: React.FC = () => {
           padding: 40px;
           border-radius: 24px;
           margin-bottom: 20px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
           text-align: center;
         }
@@ -1005,7 +1005,7 @@ const ProjectTracker: React.FC = () => {
           background: ${zenColors.surface};
           border-radius: 24px;
           padding: 30px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
           display: flex;
           flex-direction: column;
@@ -1037,11 +1037,11 @@ const ProjectTracker: React.FC = () => {
           font-size: 1.5rem;
           cursor: pointer;
           transition: all 0.3s;
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.3);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
         }
 
         .new-project-btn:hover {
-          background: #FF7BB3;
+          background: #357ABD;
           transform: scale(1.1);
         }
 
@@ -1067,13 +1067,13 @@ const ProjectTracker: React.FC = () => {
         .project-item:hover {
           border-color: ${zenColors.primary};
           transform: translateX(4px);
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
         }
 
         .project-item.active {
           border-color: ${zenColors.primary};
           background: ${zenColors.primary}15;
-          box-shadow: 0 4px 16px rgba(255, 155, 201, 0.2);
+          box-shadow: 0 4px 16px rgba(74, 144, 226, 0.2);
         }
 
         .project-item.inactive {
@@ -1213,7 +1213,7 @@ const ProjectTracker: React.FC = () => {
           background: ${zenColors.surface};
           border-radius: 24px;
           padding: 30px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
           display: flex;
           flex-direction: column;
@@ -1309,7 +1309,7 @@ const ProjectTracker: React.FC = () => {
         .tab-btn.active {
           background: ${zenColors.primary};
           color: white;
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.3);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
         }
 
         .tab-btn:hover:not(.active) {
@@ -1367,13 +1367,13 @@ const ProjectTracker: React.FC = () => {
           transition: all 0.3s;
           width: 100%;
           font-size: 1rem;
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.3);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
         }
 
         .submit-btn:hover {
-          background: #FF7BB3;
+          background: #357ABD;
           transform: translateY(-2px);
-          box-shadow: 0 6px 16px rgba(255, 155, 201, 0.4);
+          box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
         }
 
         /* Overview */
@@ -1457,7 +1457,7 @@ const ProjectTracker: React.FC = () => {
         .idea-card:hover {
           border-color: ${zenColors.primary};
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 24px rgba(74, 144, 226, 0.1);
         }
 
         .idea-header {
@@ -1719,7 +1719,7 @@ const ProjectTracker: React.FC = () => {
 
         .resource-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 12px 32px rgba(74, 144, 226, 0.1);
         }
 
         .resource-header {

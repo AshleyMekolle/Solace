@@ -65,7 +65,7 @@ const GoalTracker: React.FC = () => {
       currentCount: 1,
       streak: 2,
       bestStreak: 10,
-      color: '#FF9BC9',
+      color: '#4A90E2',
       icon: '💻',
       createdAt: new Date('2024-01-01'),
       lastCompleted: new Date(),
@@ -85,7 +85,7 @@ const GoalTracker: React.FC = () => {
       currentCount: 2,
       streak: 3,
       bestStreak: 5,
-      color: '#A1E8D9',
+      color: '#50C878',
       icon: '🏋️‍♀️',
       createdAt: new Date('2024-01-05'),
       lastCompleted: new Date(),
@@ -105,7 +105,7 @@ const GoalTracker: React.FC = () => {
       currentCount: 1,
       streak: 5,
       bestStreak: 8,
-      color: '#BDB2FF',
+      color: '#7B68EE',
       icon: '📚',
       createdAt: new Date('2024-01-10'),
       lastCompleted: new Date(),
@@ -159,30 +159,30 @@ const GoalTracker: React.FC = () => {
     }
   }, [goals, dailyProgress]);
 
-  // Zen Color Palette
+  // Zen Color Palette - UPDATED TO UNISEX & MINIMALIST
   const zenColors = {
-    primary: '#FF9BC9',
-    secondary: '#A1E8D9',
-    tertiary: '#FFC8DD',
-    accent: '#BDB2FF',
-    background: '#FFF9F9',
+    primary: '#4A90E2',
+    secondary: '#50C878',
+    tertiary: '#7B68EE',
+    accent: '#FF8C42',
+    background: '#F5F7FA',
     surface: '#FFFFFF',
-    text: '#5A5560',
-    lightText: '#9D8BA5',
-    border: '#F0D9E7',
-    success: '#A1E8D9',
-    warning: '#FFD6A5',
-    error: '#FF9BC9',
+    text: '#2D3748',
+    lightText: '#718096',
+    border: '#E2E8F0',
+    success: '#50C878',
+    warning: '#FF8C42',
+    error: '#FF6B6B',
   };
 
-  // Goal categories
+  // Goal categories - UPDATED
   const categories: { id: GoalCategory; name: string; icon: string; color: string; description: string }[] = [
-    { id: 'health', name: 'Health & Fitness', icon: '💪', color: '#A1E8D9', description: 'Physical wellbeing' },
-    { id: 'learning', name: 'Learning', icon: '🎓', color: '#BDB2FF', description: 'Knowledge & skills' },
-    { id: 'productivity', name: 'Productivity', icon: '📊', color: '#FF9BC9', description: 'Work & efficiency' },
-    { id: 'personal', name: 'Personal Growth', icon: '🌱', color: '#FFD6A5', description: 'Self-improvement' },
-    { id: 'creative', name: 'Creative', icon: '🎨', color: '#FFC8DD', description: 'Art & expression' },
-    { id: 'other', name: 'Other', icon: '✨', color: '#D6CCC2', description: 'Miscellaneous goals' },
+    { id: 'health', name: 'Health & Fitness', icon: '💪', color: '#50C878', description: 'Physical wellbeing' },
+    { id: 'learning', name: 'Learning', icon: '🎓', color: '#7B68EE', description: 'Knowledge & skills' },
+    { id: 'productivity', name: 'Productivity', icon: '📊', color: '#4A90E2', description: 'Work & efficiency' },
+    { id: 'personal', name: 'Personal Growth', icon: '🌱', color: '#FF8C42', description: 'Self-improvement' },
+    { id: 'creative', name: 'Creative', icon: '🎨', color: '#FF6B6B', description: 'Art & expression' },
+    { id: 'other', name: 'Other', icon: '✨', color: '#718096', description: 'Miscellaneous goals' },
   ];
 
   // Frequency options
@@ -192,12 +192,12 @@ const GoalTracker: React.FC = () => {
     { id: 'monthly', name: 'Monthly', icon: '🗓️', description: 'Monthly goals' },
   ];
 
-  // Status colors
+  // Status colors - UPDATED
   const statusColors = {
-    'active': zenColors.success,
-    'paused': zenColors.warning,
-    'completed': zenColors.accent,
-    'archived': zenColors.lightText,
+    'active': '#4A90E2',
+    'paused': '#FF8C42',
+    'completed': '#50C878',
+    'archived': '#718096',
   };
 
   // Today's date
@@ -409,7 +409,7 @@ const GoalTracker: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="header-content">
-          <h1>🌸 Goal Tracker</h1>
+          <h1>🎯 Goal Tracker</h1>
           <p className="subtitle">{getMotivationalMessage()}</p>
         </div>
         <div className="header-stats">
@@ -453,7 +453,7 @@ const GoalTracker: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            🌟 Today
+            📅 Today
           </motion.button>
           <motion.button
             className={`tab-btn ${activeTab === 'goals' ? 'active' : ''}`}
@@ -477,7 +477,7 @@ const GoalTracker: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            📅 History
+            📈 History
           </motion.button>
         </div>
 
@@ -687,7 +687,7 @@ const GoalTracker: React.FC = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  🌸 Add Goal
+                  🎯 Add Goal
                 </motion.button>
               </form>
 
@@ -724,7 +724,7 @@ const GoalTracker: React.FC = () => {
                               className="status-select"
                               style={{ color: statusColors[goal.status] }}
                             >
-                              <option value="active">🌱 Active</option>
+                              <option value="active">⚡ Active</option>
                               <option value="paused">⏸️ Paused</option>
                               <option value="completed">✅ Completed</option>
                               <option value="archived">📦 Archived</option>
@@ -943,7 +943,7 @@ const GoalTracker: React.FC = () => {
               animate={{ opacity: 1 }}
             >
               <div className="history-header">
-                <h2>📅 7-Day History</h2>
+                <h2>📈 7-Day History</h2>
                 <p>Track your consistency over the past week</p>
               </div>
 
@@ -1039,14 +1039,14 @@ const GoalTracker: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <div className="inspiration-icon">🌸</div>
+        <div className="inspiration-icon">⚡</div>
         <p>"Small daily improvements are the key to staggering long-term results."</p>
       </motion.div>
 
       <style>{`
         .goal-tracker {
           min-height: 100vh;
-          background: linear-gradient(135deg, ${zenColors.background} 0%, #FFEFF7 100%);
+          background: linear-gradient(135deg, ${zenColors.background} 0%, #EBF4FF 100%);
           padding: 20px;
           font-family: 'Poppins', sans-serif;
           color: ${zenColors.text};
@@ -1058,7 +1058,7 @@ const GoalTracker: React.FC = () => {
           padding: 40px;
           border-radius: 24px;
           margin-bottom: 20px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
           display: flex;
           justify-content: space-between;
@@ -1126,7 +1126,7 @@ const GoalTracker: React.FC = () => {
           background: ${zenColors.surface};
           border-radius: 24px;
           padding: 30px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
         }
 
@@ -1159,7 +1159,7 @@ const GoalTracker: React.FC = () => {
         .tab-btn.active {
           background: ${zenColors.primary};
           color: white;
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.3);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
         }
 
         .tab-btn:hover:not(.active) {
@@ -1213,7 +1213,7 @@ const GoalTracker: React.FC = () => {
         .goal-item:hover {
           border-color: ${zenColors.primary};
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 24px rgba(74, 144, 226, 0.1);
         }
 
         .goal-item.completed {
@@ -1317,12 +1317,12 @@ const GoalTracker: React.FC = () => {
           top: -10px;
           right: -10px;
           background: ${zenColors.warning};
-          color: ${zenColors.text};
+          color: white;
           padding: 6px 12px;
           border-radius: 20px;
           font-size: 0.8rem;
           font-weight: 600;
-          box-shadow: 0 4px 12px rgba(255, 214, 165, 0.3);
+          box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
         }
 
         /* Quick Stats */
@@ -1345,7 +1345,7 @@ const GoalTracker: React.FC = () => {
 
         .stat-card:hover {
           border-color: ${zenColors.primary};
-          box-shadow: 0 8px 24px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 24px rgba(74, 144, 226, 0.1);
         }
 
         .stat-icon {
@@ -1471,13 +1471,13 @@ const GoalTracker: React.FC = () => {
           cursor: pointer;
           transition: all 0.3s;
           width: 100%;
-          box-shadow: 0 4px 12px rgba(255, 155, 201, 0.3);
+          box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
         }
 
         .submit-btn:hover {
-          background: #FF7BB3;
+          background: #357ABD;
           transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(255, 155, 201, 0.4);
+          box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
         }
 
         /* Goals Grid */
@@ -1496,7 +1496,7 @@ const GoalTracker: React.FC = () => {
         }
 
         .goal-card:hover {
-          box-shadow: 0 12px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 12px 32px rgba(74, 144, 226, 0.1);
         }
 
         .goal-card-header {
@@ -1692,7 +1692,7 @@ const GoalTracker: React.FC = () => {
         .overall-stat:hover {
           border-color: ${zenColors.primary};
           transform: translateY(-4px);
-          box-shadow: 0 12px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 12px 32px rgba(74, 144, 226, 0.1);
         }
 
         .stat-number {
@@ -2047,7 +2047,7 @@ const GoalTracker: React.FC = () => {
           padding: 30px;
           border-radius: 24px;
           margin-top: 20px;
-          box-shadow: 0 8px 32px rgba(255, 155, 201, 0.1);
+          box-shadow: 0 8px 32px rgba(74, 144, 226, 0.1);
           border: 1px solid ${zenColors.border};
           display: flex;
           align-items: center;

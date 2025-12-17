@@ -325,9 +325,9 @@ const App: React.FC = () => {
 
                   {/* Daily Inspiration */}
                   <div className="widget inspiration-widget">
-                    <h3 className="widget-title">✨ Daily Inspiration</h3>
+                    <h3 className="widget-title">✨</h3>
                     <div className="inspiration-content">
-                      <div className="inspiration-emoji">⚡</div>
+                      {/* <div className="inspiration-emoji">⚡</div> */}
                       <p className="inspiration-text">
                         "Small daily improvements are the key to staggering long-term results."
                       </p>
