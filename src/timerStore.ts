@@ -4,7 +4,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 export type SoundType = 'bell' | 'chime' | 'gong' | 'nature' | 'none';
 export type TimerMode = 'focus' | 'shortBreak' | 'longBreak';
-export type ThemeType = 'zen' | 'forest' | 'ocean' | 'sunset';
+export type ThemeType = 'zen' | 'forest' | 'ocean' | 'sunset' | 'monochrome' | 'professional';
 
 interface TimerState {
   // Timer state
@@ -249,39 +249,73 @@ export const calculateProgress = (current: number, total: number) => {
   return Math.min(100, (current / total) * 100);
 };
 
-// Theme colors
+// Theme colors - UPDATED TO UNISEX & MINIMALIST
 export const themes = {
   zen: {
-    primary: '#FF9BC9',
-    secondary: '#A1E8D9',
-    background: '#FFF9F9',
-    text: '#5A5560',
-    lightText: '#9D8BA5',
-    icon: '🌸'
+    name: 'Zen',
+    icon: '⚡',
+    primary: '#4A90E2',      // Professional Blue
+    secondary: '#50C878',    // Fresh Green
+    background: '#F5F7FA',   // Light Gray
+    surface: '#FFFFFF',      // White
+    text: '#2D3748',         // Dark Gray
+    lightText: '#718096',    // Medium Gray
+    border: '#E2E8F0',       // Light Gray Border
   },
   forest: {
-    primary: '#10B981',
-    secondary: '#84CC16',
-    background: '#F0FDF4',
-    text: '#064E3B',
-    lightText: '#6B7280',
-    icon: '🌿'
+    name: 'Forest',
+    icon: '🌿',
+    primary: '#50C878',      // Green
+    secondary: '#20B2AA',    // Turquoise
+    background: '#F0FFF4',   // Very Light Green
+    surface: '#FFFFFF',
+    text: '#2D3748',
+    lightText: '#718096',
+    border: '#C6F6D5',       // Light Green Border
   },
   ocean: {
-    primary: '#3B82F6',
-    secondary: '#06B6D4',
-    background: '#EFF6FF',
-    text: '#1E40AF',
-    lightText: '#6B7280',
-    icon: '🌊'
+    name: 'Ocean',
+    icon: '🌊',
+    primary: '#4A90E2',      // Blue
+    secondary: '#4169E1',    // Royal Blue
+    background: '#EBF4FF',   // Very Light Blue
+    surface: '#FFFFFF',
+    text: '#2D3748',
+    lightText: '#718096',
+    border: '#C3DDFD',       // Light Blue Border
   },
   sunset: {
-    primary: '#F59E0B',
-    secondary: '#EC4899',
-    background: '#FFFBEB',
-    text: '#92400E',
-    lightText: '#6B7280',
-    icon: '🌅'
+    name: 'Sunset',
+    icon: '🌅',
+    primary: '#FF8C42',      // Orange
+    secondary: '#FF6B6B',    // Red
+    background: '#FFF7ED',   // Very Light Orange
+    surface: '#FFFFFF',
+    text: '#2D3748',
+    lightText: '#718096',
+    border: '#FED7AA',       // Light Orange Border
+  },
+  monochrome: {
+    name: 'Monochrome',
+    icon: '⚫',
+    primary: '#2D3748',      // Dark Gray
+    secondary: '#4A5568',    // Medium Gray
+    background: '#F7FAFC',   // Light Gray
+    surface: '#FFFFFF',
+    text: '#1A202C',         // Very Dark Gray
+    lightText: '#718096',
+    border: '#E2E8F0',       // Light Gray Border
+  },
+  professional: {
+    name: 'Professional',
+    icon: '💼',
+    primary: '#2C5282',      // Dark Blue
+    secondary: '#4299E1',    // Blue
+    background: '#EDF2F7',   // Light Gray Blue
+    surface: '#FFFFFF',
+    text: '#1A202C',
+    lightText: '#4A5568',
+    border: '#CBD5E0',       // Medium Gray Border
   }
 };
 
